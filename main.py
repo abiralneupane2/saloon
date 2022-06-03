@@ -7,7 +7,7 @@ from data import get_appointments_on_date, get_appointments_by_day
 def set_appointment():
     is_new = input("Is the customer new?(Y/N): ")
     customer_id = ''
-    if is_new =="N":
+    if is_new =="n":
         customer_id = input("Enter phone no: ")
     if customer_id == '':
         first_name = input("First name: ")
@@ -22,14 +22,16 @@ def set_appointment():
             day = dt.date.today()+dt.timedelta(days=int(day))
             appointments = get_appointments_on_date(day)
             print(appointments)
+            
             break
         except ValueError as e:
-            print("Provide proper value.")
+            print("Provide proper value.", str(e))
 
     slot = input("Enter the time of appointment: ")
     type = input("Enter activity.(Default haircut): ")
-    Appointment(customer_id, date, slot, type).save()
-    input("Appointment create successfully. Press any key to continue.")
+    a = Appointment(customer_id, day, slot, type)
+    a.save()
+    input("Appointment create successfully. Press enter to continue.")
     
 
     
@@ -37,8 +39,12 @@ def set_appointment():
 
 def view_appointments():
     days = get_appointments_by_day()
-    print(days)
-
+    
+    for day in days:
+        print(day.date)
+        for app in day.slot_list:
+            print(app.customer_id, app.slot)
+    input("Press enter to continue.")
 
 def delete_appointment():
     pass
@@ -47,7 +53,7 @@ def delete_appointment():
 def reception(receptionist):
     
     while True:
-        print(f"Welcome, {receptionist.first_name}\n1.Set an appointment\n2.View an appointment\n3.Delete an appointment\n4.View available appointments\n")
+        print(f"Welcome, {receptionist.first_name}\n1.Set an appointment\n2.View all appointments\n3.Delete an appointment\n4.View available appointments\n")
         inp = input("Enter a value {1,2,3,4}\n")
         if inp=="1":
             set_appointment()
@@ -58,7 +64,8 @@ def reception(receptionist):
         else:
             print("Invalid choice. try again.\n")
         
-
+def manager(manager):
+    pass
 
 
 if __name__ == '__main__':
