@@ -1,40 +1,45 @@
 import pandas as pd
 
-class Person:
-    def __init__(self, first_name=None, last_name=None):
+
+
+class Employee:
+    def __init__(self, first_name, last_name, post, id, password=None):
+        
         self.first_name = first_name
         self.last_name = last_name
+        self.post = post
+        self.id = id
+        self.password = password
 
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
 
-class Employee(Person):
-    def __init__(self, first_name, last_name, post, id):
-        super().__init__(first_name, last_name)
-        self.post = post
-        self.id = id
-
-class Customer(Person):
-    def __init__(self, first_name, last_name, id):
-        super().__init__(first_name, last_name)
-        self.id = id
-    
     def to_dict(self):
         return {
-            'phone_no': self.id,
-            'first_name': super().first_name,
-            'last_name': super().last_name,
+            'id': self.id,
+            'first_name': self.first_name,
+            'last_name': self.last_name,
+            'post': self.post,
+            'password': self.password
         }
     def save(self):
         df = pd.DataFrame([self.to_dict()])
-        df.to_csv("csvs/customers.csv", mode='a', header=False, index=False)
+        df.to_csv("csvs/employees.csv", mode='a', header=False, index=False)
+    
+    def delete(self):
+        employees = pd.read_csv("csvs/employees.csv", header=0, index='id')
+        employees.drop('self.id')
+
+
 
 class Appointment:
-    def __init__(self, customer_id, date, slot, _type):
-        self.customer_id = customer_id
+    def __init__(self, phone_no, date, slot, _type, first_name, last_name):
+        self.phone_no = phone_no
         self.date = date
         self._type = _type or 'haircut'
         self.slot = slot
+        self.first_name = first_name
+        self.last_name = last_name
     
     def save(self):
         df = pd.DataFrame([self.to_dict()])
@@ -43,9 +48,11 @@ class Appointment:
     def to_dict(self):
         return {
             'date':self.date,
-            'customer_id':self.customer_id,
+            'phone_no':self.phone_no,
             'slot':self.slot,
             'type':self._type,
+            'first_name':self.first_name,
+            'last_name':self.last_name
             
         }
 

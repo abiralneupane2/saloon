@@ -1,5 +1,7 @@
-date,phone_no,slot,activity
-2022-06-03,98888888,2,haircut
-2022-06-04,9898980000,1,manicure
-2022-06-03,99999999,1,haircut
-2022-06-03,9860560133,3,haircut
+date,phone_no,slot,activity,first_name,last_name
+2022-06-03,98888888,2,haircut,John,Doe
+2022-06-04,9898980000,1,manicure,Abiral,Neupane
+2022-06-03,99999999,1,haircut,Sarah,Joseph
+2022-06-03,9860560133,3,haircut,Bill,Buttlicker
+2022-06-06,98989898989989898,0,haircut,Toby,Mitchell
+2022-06-04,99999999,2,haircut,Creed,Bratton
