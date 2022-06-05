@@ -1,7 +1,7 @@
 import datetime as dt
 import os
 
-from data import get_appointments_on_date, get_appointments_by_day, get_appointment_summary, get_available_workers, get_employee_summary, login_employee, delete_employee_from_csv, save_appointment_to_csv, save_employee_to_csv, get_available_workers
+from data import get_appointments_on_date, get_appointments_by_day, get_appointment_summary, get_available_workers, get_employee_summary, login_employee, delete_employee_from_csv, save_appointment_to_csv, save_employee_to_csv, get_available_workers, get_weekly_roaster
 
 def set_appointment():
     os.system('cls||clear')
@@ -75,7 +75,7 @@ def add_employee():
 def view_employee_summary():
     os.system('cls||clear')
     print("Employee summary.")
-    employees = get_employee_summary()
+    employees = get_weekly_roaster()
     print(employees)
     input("Press enter to continue")
 

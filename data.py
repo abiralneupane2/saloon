@@ -1,8 +1,10 @@
 import datetime as dt
-from turtle import pos
+import calendar
+
 
 import pandas as pd 
 import numpy as np
+
 
 
 
@@ -30,6 +32,12 @@ def get_employee_summary():
     employees = pd.read_csv("employees.csv", header=0)
     return pd.DataFrame(employees)
 
+def get_weekly_roaster():
+    roaster = pd.read_csv("weekly_roaster.csv",header=0)
+    days = [calendar.day_name[int(weekday)] for weekday in roaster.columns[1:]]
+    roaster.columns = ['name'] + days
+    return roaster
+    
 
 def login_employee(id, pw):
     #login employee
