@@ -54,3 +54,14 @@ def delete_employee_from_csv(id):
     except:
         pass
     return False
+
+def save_appointment_to_csv(date, phone_no, slot, type, first_name, last_name):
+    df = pd.DataFrame([{
+        'date':date,
+        'phone_no':phone_no,
+        'slot':slot,
+        'type':type,
+        'first_name':first_name,
+        'last_name':last_name
+    }])
+    df.to_csv("csvs/appointments.csv", mode='a', header=False, index=False)

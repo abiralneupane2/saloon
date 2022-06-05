@@ -1,7 +1,7 @@
 import datetime as dt
 import os
 
-from data import get_appointments_on_date, get_appointments_by_day, get_appointment_summary, get_employee_summary, login_employee, delete_employee_from_csv
+from data import get_appointments_on_date, get_appointments_by_day, get_appointment_summary, get_employee_summary, login_employee, delete_employee_from_csv, save_appointment_to_csv
 
 def set_appointment():
     os.system('cls||clear')
@@ -28,8 +28,7 @@ def set_appointment():
     first_name = input("First name: ")
     last_name = input("Last name: ")
     phone_no = input("Phone number: ")
-    a = Appointment(phone_no, day, slot, type, first_name, last_name)
-    a.save()
+    save_appointment_to_csv(day, phone_no, slot, type, first_name, last_name)
     input("Appointment create successfully. Press enter to continue.")
     
 
