@@ -1,7 +1,7 @@
 import datetime as dt
 import os
 
-from data import get_appointments_on_date, get_appointments_by_day, get_appointment_summary, get_employee_summary, login_employee, delete_employee_from_csv, save_appointment_to_csv
+from data import get_appointments_on_date, get_appointments_by_day, get_appointment_summary, get_available_workers, get_employee_summary, login_employee, delete_employee_from_csv, save_appointment_to_csv, save_employee_to_csv, get_available_workers
 
 def set_appointment():
     os.system('cls||clear')
@@ -17,18 +17,29 @@ def set_appointment():
                 return
             day = dt.date.today()+dt.timedelta(days=int(day))
             appointments = get_appointments_on_date(str(day))
-            print(appointments)
+            print("Appointments set: ")
+            if appointments.empty:
+                print("No appointments set till now")
+            else:
+                print(appointments)
+            print("Available workers:")
+            workers = get_available_workers(day)
+            if workers is not None:
+                print(workers)
+                break
+            else:
+                print("No one is available")
+                input()
             
-            break
         except ValueError as e:
             print("Provide proper value.", str(e))
-
+    appointed_to = input("Which worker should serve?")
     slot = input("Enter the time of appointment: ")
     type = input("Enter activity.(Default haircut): ")
     first_name = input("First name: ")
     last_name = input("Last name: ")
     phone_no = input("Phone number: ")
-    save_appointment_to_csv(day, phone_no, slot, type, first_name, last_name)
+    save_appointment_to_csv(day, phone_no, slot, type, first_name, last_name, appointed_to)
     input("Appointment create successfully. Press enter to continue.")
     
 
@@ -57,7 +68,7 @@ def add_employee():
     password = input("Enter password: ")
     post = input("Enter post.\nr : Receptionist\tm : Manager")
     id = input("Enter id for user: ")
-    e = Employee(first_name, last_name, post, id, password)
+    e = save_employee_to_csv(first_name, last_name, post, id, password)
     e.save()
     input("Employee added successfully. Press enter to continue.")
 
